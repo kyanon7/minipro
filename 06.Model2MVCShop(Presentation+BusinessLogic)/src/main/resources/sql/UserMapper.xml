@@ -7,7 +7,7 @@
 <mapper namespace="UserMapper">
  	
  	
-	<resultMap id="userSelectMap" type="user">
+	<resultMap id="userSelectMap" type="com.model2.mvc.service.domain.User">
 		<result property="userId"	column="user_id" 	jdbcType="VARCHAR"/>
 		<result property="userName"	column="user_name" 	jdbcType="VARCHAR" />
 		<result property="password" column="password" 	jdbcType="VARCHAR" />
@@ -55,7 +55,7 @@
 											<if test="searchCondition != null">
 												<where>
 													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				user_id = #{searchKeyword}
+										 				user_id LIKE '%'||#{searchKeyword}||'%'
 													</if>
 													<if test="searchCondition == 1 and searchKeyword !='' ">
 										 				user_name = #{searchKeyword}
@@ -78,7 +78,7 @@
 		-->
 	
 	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	 <select  id="getTotalCount"  parameterType="com.model2.mvc.common.Search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT user_id , user_name , email
 						FROM users

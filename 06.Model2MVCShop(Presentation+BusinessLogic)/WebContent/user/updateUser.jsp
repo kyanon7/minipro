@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-<!--
+
 function fncUpdateUser() {
 
 	var name=document.detailForm.userName.value;
@@ -50,7 +50,7 @@ function check_email(frm) {
 function resetData() {
 	document.detailForm.reset();
 }
--->
+
 </script>
 </head>
 
