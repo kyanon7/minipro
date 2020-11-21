@@ -23,7 +23,6 @@ function history(){
 <tr>
 	<td valign="top"> 
 		<table  border="0" cellspacing="0" cellpadding="0" width="159" >	
-			<tr>
 				<c:if test="${ !empty user }">
 					<tr>
 						<td class="Depth03">
@@ -32,17 +31,16 @@ function history(){
 					</tr>
 				</c:if>
 			
-				<c:if test="${user.role == 'admin'}">
+				<c:if test="${ !empty user && user.role == 'admin' }">
 					<tr>
 						<td class="Depth03" >
 							<a href="/listUser.do" target="rightFrame">회원정보조회</a>
 						</td>
 					</tr>
 				</c:if>
-			
-				<tr>
-					<td class="DepthEnd">&nbsp;</td>
-				</tr>
+			<tr>
+				<td class="DepthEnd">&nbsp;</td>
+			</tr>
 		</table>
 	</td>
 </tr>
@@ -81,14 +79,14 @@ function history(){
 			</tr>
 			
 			<c:choose>
-				<c:when test="${ !empty user && user.role == 'user'}">
+				<c:when test="${ !empty user && user.role == 'user' }">
 					<tr>
 						<td class="Depth03">
 							<a href="/listPurchase.do"  target="rightFrame">구매이력조회</a>
 						</td>
 					</tr>
 				</c:when>
-				<c:when test="${ !empty user && user.role == 'admin'}">
+				<c:when test="${ !empty user && user.role == 'admin' }">
 					<tr>
 						<td class="Depth03">
 							<a href="/listSale.do"  target="rightFrame">판매이력조회</a>

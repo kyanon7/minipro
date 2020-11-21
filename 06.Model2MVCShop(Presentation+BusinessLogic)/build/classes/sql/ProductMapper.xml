@@ -5,8 +5,8 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ProductMapper">
- 	
- 	
+
+
 	<resultMap id="productSelectMap" type="com.model2.mvc.service.domain.Product">
 		<result property="prodNo"		column="prod_no"			jdbcType="NUMERIC" />
 		<result property="prodName"		column="prod_name"			jdbcType="VARCHAR" />
@@ -17,77 +17,84 @@
 		<result property="regDate"		column="reg_date"			jdbcType="DATE" />
 	</resultMap>
 	
-	<insert 	id="addProduct"		parameterType="com.model2.mvc.service.domain.Product" >
-	 	INSERT
-		INTO product(prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date) 
-		VALUES	 (SEQ_PRODUCT_prod_no.NEXTVAL, #{prodName}, #{prodDetail:VARCHAR}, 
+	<insert	id="addProduct"	parameterType="com.model2.mvc.service.domain.Product" >
+		INSERT
+		INTO	product(prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date) 
+		VALUES	(SEQ_PRODUCT_prod_no.NEXTVAL, #{prodName}, #{prodDetail:VARCHAR}, 
 					#{manuDate:VARCHAR}, #{price:INTEGER}, #{fileName:VARCHAR}, SYSDATE)
 	</insert>
 	 
 	 	<!-- SQL : SELECT ONE --> 
-	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
+	<select	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
 		SELECT
 		prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date 		
-		FROM product 
+		FROM product
 		WHERE prod_no = #{value}
-	 </select>
+	</select>
 	 
-	 <update	id="updateProduct"	parameterType="com.model2.mvc.service.domain.Product" >
-	   	UPDATE product
+	<update	id="updateProduct"	parameterType="com.model2.mvc.service.domain.Product" >
+		UPDATE product
 	   	<set>
 	   		prod_name 			= #{prodName},
 			prod_detail			= #{prodDetail},
 			manufacture_day 	= #{manuDate},
 			price				= #{price}
-	   	</set>
-	   	WHERE prod_no = #{prodNo}
-	 </update>
+		</set>
+		WHERE prod_no = #{prodNo}
+	</update>
 	 
-	 <delete id="removeProduct" parameterType="string">
+	<delete id="removeProduct"	parameterType="string">
 	 	DELETE
 	 	FROM product
 	 	WHERE prod_name = #{value}
-	 </delete>
+	</delete>
 	 
-	 <select  id="getProductList"  parameterType="com.model2.mvc.common.Search"	resultMap="productSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(SELECT p.prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date FROM product p 
-											<where>
-											<if test="searchCondition != null">
-												<choose>
-													<when test="searchCondition == 0 and searchKeyword !='' ">
-														prod_no LIKE '%'||#{searchKeyword}||'%'
-													</when>
-													<when test="searchCondition == 1 and searchKeyword !='' ">
-										 				prod_name LIKE '%'||#{searchKeyword}||'%'
-													</when>
-													<when test="searchCondition == 2 and searchKeyword !='' ">
-										 				price LIKE '%'||#{searchKeyword}||'%'
-													</when>
-												</choose>
-											</if>	
-												AND p.prod_no NOT IN (SELECT prod_no FROM transaction) 
-											</where>
-											ORDER BY prod_no DESC) inner_table
-						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>
-	
-	 <select  id="getTotalCount"  parameterType="com.model2.mvc.common.Search"	 resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM(	SELECT prod_no , prod_name , price
-						FROM product
+	<select	id="getProductList"	parameterType="com.model2.mvc.common.Search"	resultMap="productSelectMap">
+		SELECT *
+		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
+	  				FROM(SELECT p.prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date FROM product p 
+						<where>
 						<if test="searchCondition != null">
-							<where>
-								<if test="searchCondition == 0 and searchKeyword !='' ">
-						 			prod_no = #{searchKeyword}
-								</if>
-								<if test="searchCondition == 1 and searchKeyword !='' ">
-						 			prod_name = #{searchKeyword}
-								</if>
-							</where>
-						</if> ) countTable						
-	 </select>
-	  
+							<choose>
+								<when test="searchCondition == 0 and searchKeyword !='' ">
+									prod_no LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 1 and searchKeyword !='' ">
+					 				prod_name LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 2 and searchKeyword !='' ">
+					 				price LIKE '%'||#{searchKeyword}||'%'
+								</when>
+							</choose>
+						</if>	
+							AND p.prod_no NOT IN (SELECT prod_no FROM transaction) 
+						</where>
+						ORDER BY prod_no DESC) inner_table
+				WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	</select>
+	
+	<select	id="getTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM	(SELECT prod_no, prod_name, price
+						FROM product
+						<where>
+						<if test="searchCondition != null">
+							<choose>
+								<when test="searchCondition == 0 and searchKeyword !='' ">
+									prod_no LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 1 and searchKeyword !='' ">
+					 				prod_name LIKE '%'||#{searchKeyword}||'%'
+								</when>
+								<when test="searchCondition == 2 and searchKeyword !='' ">
+					 				price LIKE '%'||#{searchKeyword}||'%'
+								</when>
+							</choose>
+						</if>	
+							AND prod_no NOT IN (SELECT prod_no FROM transaction) 
+						</where>
+						) countTable						
+	</select>
+
 </mapper>
