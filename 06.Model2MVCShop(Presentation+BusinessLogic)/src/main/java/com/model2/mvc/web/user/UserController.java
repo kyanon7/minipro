@@ -29,7 +29,7 @@ public class UserController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	//setter Method 구현 않음
-		
+	
 	public UserController(){
 		System.out.println(this.getClass());
 	}
@@ -152,7 +152,7 @@ public class UserController {
 		
 		System.out.println("/listUser.do");
 		
-		if(search.getCurrentPage() ==0 ){
+		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
