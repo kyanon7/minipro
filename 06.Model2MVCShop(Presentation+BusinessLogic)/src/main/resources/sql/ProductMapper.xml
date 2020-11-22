@@ -17,6 +17,7 @@
 		<result property="regDate"		column="reg_date"			jdbcType="DATE" />
 	</resultMap>
 	
+	<!-- SQL : INSERT -->
 	<insert	id="addProduct"	parameterType="com.model2.mvc.service.domain.Product" >
 		INSERT
 		INTO	product(prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date) 
@@ -24,14 +25,15 @@
 					#{manuDate:VARCHAR}, #{price:INTEGER}, #{fileName:VARCHAR}, SYSDATE)
 	</insert>
 	 
-	 	<!-- SQL : SELECT ONE --> 
+	<!-- SQL : SELECT ONE --> 
 	<select	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
 		SELECT
 		prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date 		
 		FROM product
 		WHERE prod_no = #{value}
 	</select>
-	 
+	
+	<!-- SQL : UPDATE -->
 	<update	id="updateProduct"	parameterType="com.model2.mvc.service.domain.Product" >
 		UPDATE product
 	   	<set>
@@ -42,38 +44,42 @@
 		</set>
 		WHERE prod_no = #{prodNo}
 	</update>
-	 
+	
+	<!-- SQL : REMOVE -->
 	<delete id="removeProduct"	parameterType="string">
 	 	DELETE
 	 	FROM product
 	 	WHERE prod_name = #{value}
 	</delete>
-	 
+	
+	<!-- SQL : SELECT LIST -->
 	<select	id="getProductList"	parameterType="com.model2.mvc.common.Search"	resultMap="productSelectMap">
 		SELECT *
-		FROM	(SELECT inner_table.*, ROWNUM AS row_seq
-	  				FROM(SELECT p.prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date FROM product p 
-						<where>
-						<if test="searchCondition != null">
-							<choose>
-								<when test="searchCondition == 0 and searchKeyword !='' ">
-									prod_no LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 1 and searchKeyword !='' ">
-					 				prod_name LIKE '%'||#{searchKeyword}||'%'
-								</when>
-								<when test="searchCondition == 2 and searchKeyword !='' ">
-					 				price LIKE '%'||#{searchKeyword}||'%'
-								</when>
-							</choose>
-						</if>	
+		FROM (SELECT inner_table.*, ROWNUM AS row_seq
+  				FROM	(SELECT p.prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date 
+  							FROM product p 
+							<where>
+							<if test="searchCondition != null">
+								<choose>
+									<when test="searchCondition == 0 and searchKeyword !='' ">
+										prod_no LIKE '%'||#{searchKeyword}||'%'
+									</when>
+									<when test="searchCondition == 1 and searchKeyword !='' ">
+						 				prod_name LIKE '%'||#{searchKeyword}||'%'
+									</when>
+									<when test="searchCondition == 2 and searchKeyword !='' ">
+						 				price LIKE '%'||#{searchKeyword}||'%'
+									</when>
+								</choose>
+							</if>	
 							AND p.prod_no NOT IN (SELECT prod_no FROM transaction) 
-						</where>
-						ORDER BY prod_no DESC) inner_table
+							</where>
+							ORDER BY prod_no DESC) inner_table
 				WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
 	
+	<!-- SQL : SELECT ROW Count -->
 	<select	id="getTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM	(SELECT prod_no, prod_name, price

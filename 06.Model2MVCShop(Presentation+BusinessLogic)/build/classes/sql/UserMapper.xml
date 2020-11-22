@@ -65,7 +65,7 @@
 								</where>
 							</if>
 							ORDER BY user_id ) inner_table
-						WHERE ROWNUM &lt;= #{endRowNum} )
+				WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
 		<!--  위 두번째 subQuery 의  
@@ -79,7 +79,7 @@
 				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
 		-->
 	
-	<!-- SQL : SELECT ROW Count -->	 
+	<!-- SQL : SELECT ROW Count -->
 	<select	id="getTotalCount"	parameterType="com.model2.mvc.common.Search"	resultType="int">
 		SELECT COUNT(*)
   		FROM	(SELECT user_id, user_name, email

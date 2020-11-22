@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -20,7 +21,6 @@ import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductService;
 
 
-//==> 회원관리 Controller
 @Controller
 public class ProductController {
 	
@@ -121,4 +121,84 @@ public class ProductController {
 		
 		return "forward:/product/listProduct.jsp";
 	}
+	
+//	@RequestMapping("/addProductView.do")
+//	public ModelAndView addProductView() throws Exception {
+//
+//		System.out.println("/addProductView.do");
+//		
+//		return new ModelAndView("redirect:/product/addProductView.jsp");
+//	}
+//	
+//	@RequestMapping("/addProduct.do")
+//	public ModelAndView addProduct( @ModelAttribute("product") Product product ) throws Exception {
+//
+//		System.out.println("/addProduct.do");
+//		//Business Logic
+//		product.setManuDate(product.getManuDate().replace("-",""));
+//		productService.addProduct(product);
+//		
+//		return new ModelAndView("forward:/product/productView.jsp");
+//	}
+//	
+//	@RequestMapping("/getProduct.do")
+//	public ModelAndView getProduct( @RequestParam("prodNo") int prodNo , Model model ) throws Exception {
+//		
+//		System.out.println("/getProduct.do");
+//		//Business Logic
+//		Product product = productService.getProduct(prodNo);
+//		// Model 과 View 연결
+//		ModelAndView modelAndView = new ModelAndView("forward:/product/getProduct.jsp");
+//		modelAndView.addObject("product", product);
+//		
+//		return modelAndView;
+//	}
+//	
+//	@RequestMapping("/updateProductView.do")
+//	public String updateProductView( @RequestParam("prodNo") int prodNo , Model model ) throws Exception{
+//
+//		System.out.println("/updateProductView.do");
+//		//Business Logic
+//		Product product = productService.getProduct(prodNo);
+//		// Model 과 View 연결
+//		model.addAttribute("product", product);
+//		
+//		return "forward:/product/updateProduct.jsp";
+//	}
+//	
+//	@RequestMapping("/updateProduct.do")
+//	public ModelAndView updateProduct( @ModelAttribute("product") Product product , Model model , HttpSession session) throws Exception{
+//
+//		System.out.println("/updateProduct.do");
+//		//Business Logic
+//		productService.updateProduct(product);
+//		ModelAndView modelAndView = new ModelAndView("redirect:/getProduct.do?prodNo="+product.getProdNo()+"&menu=manage");
+//		
+//		return modelAndView;
+//	}
+//	
+//	@RequestMapping("/listProduct.do")
+//	public ModelAndView listProduct( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+//		
+//		System.out.println("/listProduct.do");
+//		
+//		if(search.getCurrentPage() == 0 ){
+//			search.setCurrentPage(1);
+//		}
+//		search.setPageSize(pageSize);
+//		
+//		// Business logic 수행
+//		Map<String , Object> map = productService.getProductList(search);
+//		
+//		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+//		System.out.println(resultPage);
+//		
+//		// Model 과 View 연결
+//		ModelAndView modelAndView = new ModelAndView("forward:/product/listProduct.jsp");
+//		modelAndView.addObject("list", map.get("list"));
+//		modelAndView.addObject("resultPage", resultPage);
+//		modelAndView.addObject("search", search);
+//		
+//		return modelAndView;
+//	}
 }
