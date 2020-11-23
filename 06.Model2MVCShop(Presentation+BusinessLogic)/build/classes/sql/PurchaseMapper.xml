@@ -58,13 +58,13 @@
 			receiver_phone 	= #{receiverPhone}, 
 			demailaddr		= #{divyAddr}, 
 			dlvy_request	= #{divyRequest}, 
-			dlvy_date		= #{orderDate} 
+			dlvy_date		= #{divyDate} 
 		</set>
 		WHERE tran_no = #{tranNo}
 	</update>
 	
 	<!-- SQL : UPDATE TranCode -->
-	<update	id="updateTranCode"	parameterType="com.model2.mvc.service.domain.Purchase" >
+	<update	id="updateTranCode"	parameterType="map" >
 		UPDATE transaction
 	   	<set>
 	   		tran_status_code	= #{tranCode}, 
@@ -152,8 +152,8 @@
 						price, image_file, reg_date, tran_no, tran_status_code 
 						FROM product p, transaction t
 						<where>
-						<if test="searchCondition != null">
 						p.prod_no = t.prod_no
+						<if test="searchCondition != null">
 							<choose>
 								<when test="searchCondition == 0 and searchKeyword !='' ">
 									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'

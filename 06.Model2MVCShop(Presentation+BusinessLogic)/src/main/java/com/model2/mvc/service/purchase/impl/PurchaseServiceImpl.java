@@ -78,8 +78,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void updateTranCode(Purchase purchase) throws Exception {
-		purchaseDao.updateTranCode(purchase);
+	public String updateTranCode(int tranNo, String tranCode) throws Exception {
+		return purchaseDao.updateTranCode(tranNo, tranCode);
 	}
 
 }

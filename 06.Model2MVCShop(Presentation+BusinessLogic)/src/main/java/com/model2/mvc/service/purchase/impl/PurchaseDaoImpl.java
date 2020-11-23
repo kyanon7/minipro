@@ -67,8 +67,25 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	}
 
 	@Override
-	public void updateTranCode(Purchase purchase) throws Exception {
-		sqlSession.update("PurchaseMapper.updateTranCode", purchase);
+	public String updateTranCode(int tranNo, String tranCode) throws Exception {
+		
+		String forward = null;
+		
+		if(tranCode.equals("000")){
+			tranCode = "001";
+			forward = "forward:/listSale.do";
+		}else if(tranCode.equals("001")){
+			tranCode = "002";
+			forward = "forward:/listPurchase.do";
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tranNo", tranNo);
+		map.put("tranCode", tranCode);
+		
+		sqlSession.update("PurchaseMapper.updateTranCode", map);
+		
+		return forward;
 	}
 
 	@Override

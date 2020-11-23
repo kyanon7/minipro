@@ -59,7 +59,9 @@ function fncPurchase(){
 
 <form name="detailForm" method="post">
 
-<input type="hidden" id="transCode" name="transCode" value="000"/>
+<input type="hidden" id="purchaseProd.prodNo" name="purchaseProd.prodNo" value="${purchase.purchaseProd.prodNo}"/>
+<input type="hidden" id="buyer.userId" name="buyer.userId" value="${purchase.buyer.userId}"/>
+<input type="hidden" id="tranCode" name="tranCode" value="000"/>
 
 <table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
 	<tr>

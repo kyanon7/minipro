@@ -26,6 +26,6 @@ public interface PurchaseService {
 	public void updatePurchase(Purchase purchase) throws Exception;
 	
 	// 배송 정보 수정
-	public void updateTranCode(Purchase purchase) throws Exception;
+	public String updateTranCode(int tranNo, String tranCode) throws Exception;
 	
 }
