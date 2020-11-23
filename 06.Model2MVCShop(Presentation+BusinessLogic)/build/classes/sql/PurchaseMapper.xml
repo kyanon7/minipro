@@ -100,8 +100,8 @@
 						price, image_file, reg_date, tran_no, tran_status_code 
 						FROM product p, transaction t
 						<where>
-						<if test="searchCondition != null">
 						p.prod_no = t.prod_no
+						<if test="searchCondition != null">
 							<choose>
 								<when test="searchCondition == 0 and searchKeyword !='' ">
 									AND p.prod_no LIKE '%'||#{searchKeyword}||'%'

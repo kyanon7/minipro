@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<title>구매 목록 조회</title>
+<title>판매 목록 조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
@@ -99,7 +99,7 @@ function fncGetList(currentPage){
 		<tr class="ct_list_pop">
 			<td align="center">${i}</td>
 			<td></td>
-			<td align="left"><a href="/getProduct.do?prodNo=${purchase.purchaseProd.prodNo}&menu=manage">${purchase.purchaseProd.prodName}</a></td>
+			<td align="left"><a href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.purchaseProd.prodName}</a></td>
 			<td></td>
 			<td align="left">${purchase.purchaseProd.price}</td>
 			<td></td>
@@ -131,7 +131,7 @@ function fncGetList(currentPage){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="center">
-			<input type="hidden" id="currentPage" name="currentPage" value=""/>
+			<input type="hidden" id="currentPage" name="currentPage" value="0"/>
 			<%--
 			<% if(resultPage.getCurrentPage() == 1){ %>
 					◀ 이전

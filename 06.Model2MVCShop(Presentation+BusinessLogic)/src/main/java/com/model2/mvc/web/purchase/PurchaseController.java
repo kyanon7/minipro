@@ -120,8 +120,6 @@ public class PurchaseController {
 									@RequestParam("tranCode") String tranCode, Model model ) throws Exception{
 
 		System.out.println("/updateTranCode.do");
-		// Business Logic
-//		purchaseService.updateTranCode(tranNo, tranCode);
 		
 		return purchaseService.updateTranCode(tranNo, tranCode);
 	}

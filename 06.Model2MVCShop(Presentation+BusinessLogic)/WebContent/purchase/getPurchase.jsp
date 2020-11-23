@@ -7,7 +7,16 @@
 <html>
 <head>
 
-<title>구매 상세 정보</title>
+<title>
+<c:choose>
+	<c:when test = "${sessionScope.user.role == 'user'}">
+		구매 상세 정보
+	</c:when>
+	<c:when test = "${sessionScope.user.role == 'admin'}">
+		판매 상품 정보
+	</c:when>
+</c:choose>
+</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
@@ -35,7 +44,15 @@ function fncPurchase(){
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="93%" class="ct_ttl01">구매 상세 정보</td>
+					<td width="93%" class="ct_ttl01">
+					<c:choose>
+						<c:when test = "${sessionScope.user.role == 'user'}">
+							구매 상세 정보
+						</c:when>
+						<c:when test = "${sessionScope.user.role == 'admin'}">
+							판매 상품 정보
+						</c:when>
+					</c:choose></td>
 					<td width="20%" align="right">&nbsp;</td>
 				</tr>
 			</table>
@@ -152,21 +169,30 @@ function fncPurchase(){
 		<td align="right">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:fncPurchase();">수정</a>
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td>
+					<c:if test = "${sessionScope.user.role == 'user' && purchase.tranCode == '000'}">
+						<td width="17" height="23">
+							<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
+						</td>
+						<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
+							<a href="javascript:fncPurchase();">수정</a>
+						</td>
+						<td width="14" height="23">
+							<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
+						</td>
+					</c:if>
 					<td width="30"></td>
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif"width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="/listPurchase.do">확인</a>
+						<c:choose>
+							<c:when test="${sessionScope.user.role == 'user'}">
+								<a href="/listPurchase.do">확인</a>
+							</c:when>
+							<c:when test="${sessionScope.user.role == 'admin'}">
+								<a href="/listSale.do">확인</a>
+							</c:when>
+						</c:choose>
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
