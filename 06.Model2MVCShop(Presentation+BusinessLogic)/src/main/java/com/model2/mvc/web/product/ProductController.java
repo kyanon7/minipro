@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -98,11 +97,35 @@ public class ProductController {
 
 		System.out.println("/product/updateProduct : POST");
 		//Business Logic
-		System.out.println(request.getParameter("fileName"));
+		File fil = new File("");
+		System.out.println(fil);
+		System.out.println(fil.getAbsolutePath());
+		System.out.println(fil.getCanonicalPath());
+		System.out.println(System.getProperty("user.home"));
 		
-//		String filePath = "C:\\Users\\Kiros Seagil\\Desktop\\11\\";
-//		MultipartFile file = request.getFile("fileName");
-//		file.transferTo(new File(filePath+file.getOriginalFilename()));
+		System.out.println(this.getClass().getResource("").getPath());
+		System.out.println(this.getClass().getResource("/").getPath());
+		System.out.println(this.getClass().getResource("/images/").getPath());
+		System.out.println(this.getClass().getProtectionDomain().getCodeSource().getLocation());
+		
+		String path = "K:\\1111";
+		
+		MultipartFile file = request.getFile("imageFile");
+		
+		
+		
+		if(!file.getOriginalFilename().isEmpty()) {
+			
+			String pathName = file.getOriginalFilename();
+			int idx = pathName.lastIndexOf("\\");
+			if(idx == -1) {
+				idx = pathName.lastIndexOf("/");
+			}
+			String fileName = pathName.substring(idx + 1);
+			product.setFileName(fileName);
+			file.transferTo(new File(path, fileName));
+		}
+		
 		
 		productService.updateProduct(product);
 		
