@@ -73,10 +73,10 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		
 		if(tranCode.equals("000")){
 			tranCode = "001";
-			forward = "forward:/listSale.do";
+			forward = "redirect:/purchase/listSale";
 		}else if(tranCode.equals("001")){
 			tranCode = "002";
-			forward = "redirect:/listPurchase.do";
+			forward = "redirect:/purchase/listPurchase";
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -24,19 +24,20 @@
 
 <script type="text/javascript">
 
+<!--
 function fncPurchase(){
-	document.detailForm.action='/updatePurchaseView.do?';
+	document.detailForm.action='/purchase/updatePurchase';
 	document.detailForm.submit();
 }
-
+-->
 </script>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
-<form name="detailForm" method="post">
+<!-- <form name="detailForm" method="post">
 
-<input type="hidden" id="tranNo" name="tranNo" value="${purchase.tranNo}"/>
+<input type="hidden" id="tranNo" name="tranNo" value="${purchase.tranNo}"/> -->
 
 <table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
 	<tr>
@@ -174,7 +175,8 @@ function fncPurchase(){
 							<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 						</td>
 						<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-							<a href="javascript:fncPurchase();">수정</a>
+							<!-- <a href="javascript:fncPurchase();">수정</a> -->
+							<a href="/purchase/updatePurchase?tranNo=${purchase.tranNo}">수정</a>
 						</td>
 						<td width="14" height="23">
 							<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -187,10 +189,10 @@ function fncPurchase(){
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
 						<c:choose>
 							<c:when test="${sessionScope.user.role == 'user'}">
-								<a href="/listPurchase.do">확인</a>
+								<a href="/purchase/listPurchase">확인</a>
 							</c:when>
 							<c:when test="${sessionScope.user.role == 'admin'}">
-								<a href="/listSale.do">확인</a>
+								<a href="/purchase/listSale">확인</a>
 							</c:when>
 						</c:choose>
 					</td>

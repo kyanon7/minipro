@@ -48,7 +48,7 @@ function fncPurchase(){
 		return;
 	}
 		
-	document.detailForm.action='/addPurchase.do?';
+	document.detailForm.action='/purchase/addPurchase';
 	document.detailForm.submit();
 }
 

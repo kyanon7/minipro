@@ -39,7 +39,7 @@ function fncPurchase(){
 		return;
 	}
 		
-	document.detailForm.action='/updatePurchase.do?';
+	document.detailForm.action='/purchase/updatePurchase';
 	document.detailForm.submit();
 }
 
@@ -79,10 +79,22 @@ function fncPurchase(){
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 		
-		<select name="paymentOption" class="ct_input_g" style="width:80px">
+		<!-- <select name="paymentOption" class="ct_input_g" style="width:80px">
 			<option value="000" selected>현금 구매</option>
 			<option value="001">카드 결제</option>
-		</select>
+		</select> -->
+		
+			<c:choose>
+				<c:when test = "${purchase.paymentOption == 000}">
+					현금 구매
+				</c:when>
+				<c:when test = "${purchase.paymentOption == 001}">
+					카드 결제
+				</c:when>
+				<c:otherwise>
+					문제가 있습니다.
+				</c:otherwise>
+			</c:choose>
 		
 		</td>
 	</tr>

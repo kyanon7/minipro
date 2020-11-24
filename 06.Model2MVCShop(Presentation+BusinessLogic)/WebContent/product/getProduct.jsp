@@ -126,14 +126,14 @@
 					<c:when test = "${param.menu == 'manage'}">
 						<td width="17" height="23"><img src="/images/ct_btnbg01.gif" width="17" height="23"/></td>
 						<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-							<a href="/updateProductView.do?prodNo=${param.prodNo}&menu=${param.menu}">수정</a></td>
+							<a href="/product/updateProduct?prodNo=${param.prodNo}&menu=${param.menu}">수정</a></td>
 						<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/></td>
 					</c:when>
 					<c:when test = "${param.menu == 'search' && sessionScope.user.role != 'admin'}">
 						<td width="17" height="23"><img src="/images/ct_btnbg01.gif" width="17" height="23"/></td>
 						<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-							<a href="/addPurchaseView.do?prodNo=${product.prodNo}">구매</a></td>
+							<a href="/purchase/addPurchase?prodNo=${product.prodNo}">구매</a></td>
 						<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/></td>
 					</c:when>
@@ -143,7 +143,7 @@
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-					<a href="/listProduct.do?menu=${param.menu}">확인</a>
+					<a href="/product/listProduct?menu=${param.menu}">확인</a>
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

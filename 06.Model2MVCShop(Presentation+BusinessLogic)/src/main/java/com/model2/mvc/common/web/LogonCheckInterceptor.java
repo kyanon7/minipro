@@ -44,9 +44,16 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 		if(   user != null   )  {
 			//==> 로그인 상태에서 접근 불가 URI
 			String uri = request.getRequestURI();
+			
+			/*
 			if(		uri.indexOf("addUserView") != -1 	|| 	uri.indexOf("addUser") != -1 || 
 					uri.indexOf("loginView") != -1 			||	uri.indexOf("login") != -1 		|| 
 					uri.indexOf("checkDuplication") != -1 ){
+			*/
+			
+			if(		uri.indexOf("addUser") != -1 || uri.indexOf("login") != -1	|| 
+					uri.indexOf("checkDuplication") != -1 ){
+			
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				System.out.println("[ 로그인 상태.. 로그인 후 불필요 한 요구.... ]");
 				System.out.println("[ LogonCheckInterceptor end........]\n");
@@ -59,8 +66,14 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 		}else{ //==> 미 로그인한 화원이라면...
 			//==> 로그인 시도 중.....
 			String uri = request.getRequestURI();
+			
+			/*
 			if(		uri.indexOf("addUserView") != -1 	|| 	uri.indexOf("addUser") != -1 || 
 					uri.indexOf("loginView") != -1 			||	uri.indexOf("login") != -1 		|| 
+					uri.indexOf("checkDuplication") != -1 ){
+			*/
+			
+			if(		uri.indexOf("addUser") != -1 || uri.indexOf("login") != -1 	|| 
 					uri.indexOf("checkDuplication") != -1 ){
 				System.out.println("[ 로그 시도 상태 .... ]");
 				System.out.println("[ LogonCheckInterceptor end........]\n");

@@ -99,7 +99,7 @@ function fncGetList(currentPage){
 		<tr class="ct_list_pop">
 			<td align="center">${i}</td>
 			<td></td>
-			<td align="left"><a href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.purchaseProd.prodName}</a></td>
+			<td align="left"><a href="/purchase/getPurchase?tranNo=${purchase.tranNo}">${purchase.purchaseProd.prodName}</a></td>
 			<td></td>
 			<td align="left">${purchase.purchaseProd.price}</td>
 			<td></td>
@@ -108,7 +108,7 @@ function fncGetList(currentPage){
 			<td align="left">
 			<c:choose>
 				<c:when test = "${purchase.tranCode == 000}">
-					현재 구매완료 상태입니다. <a href="/updateTranCode.do?tranNo=${purchase.tranNo}&tranCode=${purchase.tranCode}">배송하기</a>
+					현재 구매완료 상태입니다. <a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&tranCode=${purchase.tranCode}">배송하기</a>
 				</c:when>
 				<c:when test = "${purchase.tranCode == 001}">
 					현재 배송중입니다.

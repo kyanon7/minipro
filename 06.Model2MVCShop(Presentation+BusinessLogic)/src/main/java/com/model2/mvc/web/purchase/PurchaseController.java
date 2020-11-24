@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +25,7 @@ import com.model2.mvc.service.purchase.PurchaseService;
 
 
 @Controller
+@RequestMapping("/purchase/*")
 public class PurchaseController {
 	
 	///Field
@@ -50,10 +52,10 @@ public class PurchaseController {
 	int pageSize;
 	
 	
-	@RequestMapping("/addPurchaseView.do")
-	public String addProductView( @RequestParam("prodNo") int prodNo , Model model, HttpSession session ) throws Exception {
+	@RequestMapping(value="addPurchase", method=RequestMethod.GET)
+	public String addPurchase( @RequestParam("prodNo") int prodNo , Model model, HttpSession session ) throws Exception {
 
-		System.out.println("/addPurchaseView.do");
+		System.out.println("/purchase/addPurchase : GET");
 		
 		User user = (User)session.getAttribute("user");
 		
@@ -68,10 +70,10 @@ public class PurchaseController {
 		return "forward:/purchase/addPurchaseView.jsp";
 	}
 	
-	@RequestMapping("/addPurchase.do")
+	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
 	public String addPurchase( @ModelAttribute("purchase") Purchase purchase ) throws Exception {
 
-		System.out.println("/addPurchase.do");
+		System.out.println("/purchase/addPurchase : POST");
 		// Business Logic
 //		purchase.setDivyDate(purchase.getDivyDate().replace("-", ""));
 		purchaseService.addPurchase(purchase);
@@ -79,10 +81,10 @@ public class PurchaseController {
 		return "forward:/purchase/purchaseView.jsp";
 	}
 	
-	@RequestMapping("/getPurchase.do")
+	@RequestMapping(value="/getPurchase", method=RequestMethod.GET)
 	public String getProduct( @RequestParam("tranNo") int tranNo , Model model ) throws Exception {
 		
-		System.out.println("/getPurchase.do");
+		System.out.println("/purchase/getPurchase : GET");
 		// Business Logic
 		Purchase purchase = purchaseService.getPurchase(tranNo);
 		purchase.setDivyDate(purchase.getDivyDate().substring(0, 10));
@@ -92,10 +94,10 @@ public class PurchaseController {
 		return "forward:/purchase/getPurchase.jsp";
 	}
 	
-	@RequestMapping("/updatePurchaseView.do")
-	public String updatePurchaseView( @RequestParam("tranNo") int tranNo , Model model ) throws Exception{
+	@RequestMapping(value="updatePurchase", method=RequestMethod.GET)
+	public String updatePurchase( @RequestParam("tranNo") int tranNo , Model model ) throws Exception{
 
-		System.out.println("/updatePurchaseView.do");
+		System.out.println("/purchase/updatePurchase : GET");
 		// Business Logic
 		Purchase purchase = purchaseService.getPurchase(tranNo);
 		purchase.setDivyDate(purchase.getDivyDate().substring(0, 10));
@@ -105,29 +107,29 @@ public class PurchaseController {
 		return "forward:/purchase/updatePurchase.jsp";
 	}
 	
-	@RequestMapping("/updatePurchase.do")
+	@RequestMapping(value="updatePurchase", method=RequestMethod.POST)
 	public String updatePurchase( @ModelAttribute("purchase") Purchase purchase , Model model ) throws Exception{
 
-		System.out.println("/updatePurchase.do");
+		System.out.println("/purchase/updatePurchase : POST");
 		// Business Logic
 		purchaseService.updatePurchase(purchase);
 		
-		return "redirect:/getPurchase.do?tranNo="+purchase.getTranNo();
+		return "redirect:/purchase/getPurchase?tranNo="+purchase.getTranNo();
 	}
 	
-	@RequestMapping("/updateTranCode.do")
+	@RequestMapping(value="updateTranCode")
 	public String updateTranCode( @RequestParam("tranNo") int tranNo , 
 									@RequestParam("tranCode") String tranCode, Model model ) throws Exception{
 
-		System.out.println("/updateTranCode.do");
+		System.out.println("/purchase/updateTranCode.do : GET / POST");
 		
 		return purchaseService.updateTranCode(tranNo, tranCode);
 	}
 	
-	@RequestMapping("/listPurchase.do")
+	@RequestMapping(value="listPurchase")
 	public String listPurchase( @ModelAttribute("search") Search search , Model model , HttpServletRequest request, HttpSession session) throws Exception{
 		
-		System.out.println("/listPurchase.do");
+		System.out.println("/purchase/listPurchase : GET / POST");
 		
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
@@ -150,10 +152,10 @@ public class PurchaseController {
 		return "forward:/purchase/listPurchase.jsp";
 	}
 	
-	@RequestMapping("/listSale.do")
+	@RequestMapping(value="listSale")
 	public String listSale( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/listSale.do");
+		System.out.println("/purchase/listSale : GET / POST");
 		
 		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
