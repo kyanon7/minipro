@@ -1,9 +1,9 @@
 package com.model2.mvc.web.product;
 
+import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -90,11 +92,18 @@ public class ProductController {
 		return "forward:/product/updateProduct.jsp";
 	}
 	
+//	@RequestParam("fileName") MultipartFile file
 	@RequestMapping(value="updateProduct", method=RequestMethod.POST)
-	public String updateProduct( @ModelAttribute("product") Product product , Model model , HttpSession session) throws Exception{
+	public String updateProduct( @ModelAttribute("product") Product product, MultipartHttpServletRequest request) throws Exception{
 
 		System.out.println("/product/updateProduct : POST");
 		//Business Logic
+		System.out.println(request.getParameter("fileName"));
+		
+//		String filePath = "C:\\Users\\Kiros Seagil\\Desktop\\11\\";
+//		MultipartFile file = request.getFile("fileName");
+//		file.transferTo(new File(filePath+file.getOriginalFilename()));
+		
 		productService.updateProduct(product);
 		
 		return "redirect:/product/getProduct?prodNo="+product.getProdNo()+"&menu=manage";
