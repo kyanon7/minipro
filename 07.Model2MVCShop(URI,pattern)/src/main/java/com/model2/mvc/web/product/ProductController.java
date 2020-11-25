@@ -97,21 +97,13 @@ public class ProductController {
 
 		System.out.println("/product/updateProduct : POST");
 		//Business Logic
-		File fil = new File("");
-		System.out.println(fil);
-		System.out.println(fil.getAbsolutePath());
-		System.out.println(fil.getCanonicalPath());
-		System.out.println(System.getProperty("user.home"));
 		
-		System.out.println(this.getClass().getResource("").getPath());
-		System.out.println(this.getClass().getResource("/").getPath());
-		System.out.println(this.getClass().getResource("/images/").getPath());
-		System.out.println(this.getClass().getProtectionDomain().getCodeSource().getLocation());
+		String path = "C:\\workspace\\git\\minipro\\minipro\\07.Model2MVCShop(URI,pattern)\\WebContent\\images\\uploadFiles";
 		
-		String path = "K:\\1111";
+		System.out.println(path);
 		
 		MultipartFile file = request.getFile("imageFile");
-		
+		System.out.println(!file.getOriginalFilename().isEmpty());
 		
 		
 		if(!file.getOriginalFilename().isEmpty()) {
